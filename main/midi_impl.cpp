@@ -1,9 +1,8 @@
 #include <cstdint>
 #include <cstdio>
-#include "synth_config.h"
 #include "./midi_lib/midi.h"
 #include "midi_impl.h"
-#include "synth_ctrl.h"
+#include "./fm_lib/synth_ctrl.h"
 
 namespace su_midi{
     void midi_receiver_impl::note_on_handler(std::uint8_t note,std::uint8_t velocity,std::uint8_t ch){

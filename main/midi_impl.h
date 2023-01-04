@@ -2,8 +2,7 @@
 #define _MIDI_IMPL_H_
 
 #include <cstdint>
-#include "synth_config.h"
-#include "midi.h"
+#include "./midi_lib/midi.h"
 
 namespace su_midi{
     class midi_receiver_impl:public midi_receiver_base{
