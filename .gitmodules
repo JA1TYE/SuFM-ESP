@@ -1,9 +1,6 @@
 [submodule "main/fm_lib"]
 	path = main/fm_lib
 	url = https://github.com/JA1TYE/SuFMLib.git
-[submodule "main/driver/aic3204"]
-	path = main/driver/aic3204
-	url = https://github.com/JA1TYE/ESP32_aic3204.git
 [submodule "main/driver/codec"]
 	path = main/driver/codec
 	url = https://github.com/JA1TYE/ESP32_aic3204.git
