@@ -8,8 +8,8 @@
 #include <math.h>
 #include "./driver/codec/codec.h"
 #include "./driver/codec/aic3204.h"
+#include "./midi_impl.h"
 #include "./fm_lib/fmtone.h"
-#include "./fm_lib/midi_impl.h"
 #include "./fm_lib/synth_config.h"
 #include "./fm_lib/synth_param.h"
 #include "./fm_lib/synth_ctrl.h"

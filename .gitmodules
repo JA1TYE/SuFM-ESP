@@ -4,3 +4,6 @@
 [submodule "main/driver/codec"]
 	path = main/driver/codec
 	url = https://github.com/JA1TYE/ESP32_aic3204.git
+[submodule "main/midi_lib"]
+	path = main/midi_lib
+	url = https://github.com/JA1TYE/SuMIDILib.git
