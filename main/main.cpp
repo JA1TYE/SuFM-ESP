@@ -10,10 +10,9 @@
 #include "./driver/codec/aic3204.h"
 #include "./midi_impl.h"
 #include "./fm_lib/fmtone.h"
-#include "./fm_lib/synth_config.h"
-#include "./fm_lib/synth_param.h"
 #include "./fm_lib/synth_ctrl.h"
 #include "./fm_lib/timbre_manager.h"
+#include "./machine_config.h"
 
 extern "C"{
     void app_main();
@@ -33,7 +32,7 @@ void main_process(void *pvParameters){
     aic3204_set_dac_digital_volume(AIC3204_BOTH,0.0);
     sucodec_set_amp_mute(false);
     if(ret != ESP_OK)printf("ERR at sucodec_init\n");
-    su_midi::midi_receiver_impl uart_midi;
+    su_midi::midi_receiver_impl uart_midi(0xffff ^ (1 << 9));
     uint8_t uart_buf[10];
     int32_t out_buf[96];
 

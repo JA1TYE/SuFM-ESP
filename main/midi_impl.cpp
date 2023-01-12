@@ -6,27 +6,21 @@
 
 namespace su_midi{
     void midi_receiver_impl::note_on_handler(std::uint8_t note,std::uint8_t velocity,std::uint8_t ch){
-        if(receive_ch_flag & (1 << ch)){
-            if(velocity == 0){
-                su_synth::synth_controller::negate_tg(note,ch);  
-            }
-            else{
-                su_synth::synth_controller::assert_tg(note,ch,velocity);
-            }
+        if(velocity == 0){
+            su_synth::synth_controller::negate_tg(note,ch);  
+        }
+        else{
+            su_synth::synth_controller::assert_tg(note,ch,velocity);
         }
         //printf("note on:%d,velocity:%d\n",note,velocity);
     }
     void midi_receiver_impl::note_off_handler(std::uint8_t note,std::uint8_t velocity,std::uint8_t ch){
-        if(receive_ch_flag & (1 << ch)){
-            su_synth::synth_controller::negate_tg(note,ch);
-            //printf("note off:%d,velocity:%d\n",note,velocity);
-        }
+        su_synth::synth_controller::negate_tg(note,ch);
+        //printf("note off:%d,velocity:%d\n",note,velocity);
     }
 
     void midi_receiver_impl::pc_handler(std::uint8_t prog_num,std::uint8_t ch){
-        if(receive_ch_flag & (1 << ch)){
-            su_synth::synth_controller::set_timbre(su_synth::PROGRAM_CHANGE,prog_num,ch);
-        }
+        su_synth::synth_controller::set_timbre(su_synth::PROGRAM_CHANGE,prog_num,ch);
     }
 
     void midi_receiver_impl::cc_handler(std::uint8_t control_num,std::uint8_t value,std::uint8_t ch){
@@ -82,8 +76,6 @@ namespace su_midi{
     }
 
     void midi_receiver_impl::pitchbend_handler(std::int16_t value,std::uint8_t ch){
-        if(receive_ch_flag & (1 << ch)){
-            su_synth::synth_controller::set_pitchbend(value,ch);
-        }
+        su_synth::synth_controller::set_pitchbend(value,ch);
     }
 }
