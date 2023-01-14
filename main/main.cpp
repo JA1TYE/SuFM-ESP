@@ -32,7 +32,6 @@ void main_process(void *pvParameters){
     aic3204_set_dac_digital_volume(AIC3204_BOTH,0.0);
     sucodec_set_amp_mute(false);
     if(ret != ESP_OK)printf("ERR at sucodec_init\n");
-    su_midi::midi_receiver_impl uart_midi(0xffff ^ (1 << 9));
     uint8_t uart_buf[10];
     int32_t out_buf[96];
 
@@ -61,8 +60,11 @@ void main_process(void *pvParameters){
     uart_set_pin(UART_NUM_1, UART_PIN_NO_CHANGE, 34,UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
     uart_param_config(UART_NUM_1, &midi_uart_config);
     uart_driver_install(UART_NUM_1, 1024, 0, 0, NULL, 0);
+
     su_synth::timbre_manager::init();
-    su_synth::synth_controller::init();
+    su_synth::synth_controller::prepare_delta_table(47999.99296665192);
+    su_synth::synth_controller synth;
+    su_midi::midi_receiver_impl uart_midi(&synth,0xffff ^ (1 << 9));
 
     size_t length = 0;
     size_t ret_size;
@@ -77,7 +79,7 @@ void main_process(void *pvParameters){
                     uart_midi.parse_byte(uart_buf[n]);
                 }
             }
-            su_synth::synth_controller::calc(&out_buf[i*2]);     
+            synth.calc(&out_buf[i*2]);     
         }
         ret = sucodec_write(out_buf,48*2*4,&ret_size,1000);
         sucodec_set_amp_mute(sucodec_is_hp_detected());
