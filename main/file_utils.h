@@ -8,5 +8,7 @@ const char program_file_path[] = "/spiffs/program.bin"; //Path for program data
 
 //Functions
 void load_all_timbre_from_file(su_synth::fm::timbre_manager *tm,const char *filename);
+void fs_init(void);
+void fs_deinit(void);
 
 #endif
