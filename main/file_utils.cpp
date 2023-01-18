@@ -15,7 +15,7 @@ void load_all_timbre_from_file(su_synth::fm::timbre_manager *tm,const char *file
     }
 
     std::uint8_t buf [256];
-    for(int i = 0;i < MAX_TIMBRE_PROGRAMS;i++){
+    for(int i = 0;i < tm->get_timbre_memory_size();i++){
         fread(buf,1,sizeof(su_synth::fm::save_param_t),f);
         tm->import_timbre(i,(su_synth::fm::save_param_t*)buf);
     }

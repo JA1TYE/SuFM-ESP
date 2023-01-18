@@ -33,7 +33,7 @@ void codec_init(){
     esp_err_t ret;
     ret = sucodec_init();
     aic3204_set_headphone_volume(AIC3204_BOTH,0);
-    aic3204_set_line_out_volume(AIC3204_BOTH,4.0);
+    aic3204_set_line_out_volume(AIC3204_BOTH,-8.0);
     aic3204_set_line_out_mute(AIC3204_BOTH,false);
     aic3204_set_dac_digital_volume(AIC3204_BOTH,0.0);
     sucodec_set_amp_mute(false);
@@ -75,11 +75,10 @@ void main_process(void *pvParameters){
     uart_init();
     fs_init();
 
-    su_synth::fm::timbre_manager timbre;
+    su_synth::fm::timbre_manager timbre(256);
+    su_synth::fm::synth_controller synth;
     load_all_timbre_from_file(&timbre,program_file_path);
-
-    su_synth::fm::synth_controller::prepare_delta_table(47999.99296665192);
-    su_synth::fm::synth_controller synth(&timbre);
+    synth.init(&timbre,47999.99296665192,6);
     su_midi::midi_receiver_impl uart_midi(&synth,0xffff ^ (1 << 9));
 
     size_t length = 0;
